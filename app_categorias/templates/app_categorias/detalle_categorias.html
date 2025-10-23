@@ -1,0 +1,38 @@
+{% extends 'app_categorias/base.html' %}
+
+{% block content %}
+<h2>📋 Detalle de Categoría</h2>
+
+<div class="detail-card">
+    <p><strong>ID:</strong> {{ categoria.id_categoria }}</p>
+    <p><strong>Nombre:</strong> {{ categoria.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ categoria.descripcion|default:"No hay descripción" }}</p>
+</div>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'app_categorias:editar_categorias' categoria.id_categoria %}" class="btn btn-primary">✏️ Editar</a>
+    <a href="{% url 'app_categorias:borrar_categorias' categoria.id_categoria %}" class="btn btn-danger">🗑️ Eliminar</a>
+    <a href="{% url 'app_categorias:listar_categorias' %}" class="btn btn-primary">← Volver a la lista</a>
+</div>
+
+<h3 style="margin-top: 30px;">📦 Productos en esta categoría:</h3>
+{% if categoria.productos.all %}
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+    {% for producto in categoria.productos.all %}
+    <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
+        {% if producto.foto %}
+            <img src="{{ producto.foto.url }}" alt="{{ producto.nombre }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;">
+        {% else %}
+            <div style="width: 100px; height: 100px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 5px; margin: 0 auto;">
+                📷
+            </div>
+        {% endif %}
+        <h4>{{ producto.nombre }}</h4>
+        <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No hay productos en esta categoría.</p>
+{% endif %}
+{% endblock %}

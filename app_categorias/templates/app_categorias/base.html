@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Categorías y Productos{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container fade-in">
+        <div class="header">
+            <h1>🏢 Sistema de Gestión</h1>
+        </div>
+        
+        <div class="nav">
+            <a href="{% url 'app_categorias:listar_categorias' %}">🏠 Inicio</a>
+            <a href="{% url 'app_categorias:listar_categorias' %}">📂 Categorías</a>
+            <a href="{% url 'app_categorias:listar_productos' %}">📦 Productos</a>
+            <a href="{% url 'app_categorias:crear_categorias' %}">➕ Nueva Categoría</a>
+            <a href="{% url 'app_categorias:crear_productos' %}">➕ Nuevo Producto</a>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

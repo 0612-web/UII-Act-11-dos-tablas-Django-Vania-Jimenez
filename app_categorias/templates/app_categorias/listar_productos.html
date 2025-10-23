@@ -1,0 +1,49 @@
+{% extends 'app_categorias/base.html' %}
+
+{% block content %}
+<h2>📦 Lista de Productos</h2>
+
+<a href="{% url 'app_categorias:crear_productos' %}" class="btn btn-success">➕ Nuevo Producto</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Proveedor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td><strong>{{ producto.id_producto }}</strong></td>
+            <td>
+                {% if producto.foto %}
+                    <img src="{{ producto.foto.url }}" alt="{{ producto.nombre }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                {% else %}
+                    <div style="width: 50px; height: 50px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                        📷
+                    </div>
+                {% endif %}
+            </td>
+            <td>{{ producto.nombre }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>{{ producto.id_categoria.nombre }}</td>
+            <td>{{ producto.id_proveedor }}</td>
+            <td>
+                <a href="{% url 'app_categorias:editar_productos' producto.id_producto %}" class="btn btn-primary">✏️ Editar</a>
+                <a href="{% url 'app_categorias:borrar_productos' producto.id_producto %}" class="btn btn-danger">🗑️ Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" style="text-align: center;">No hay productos registrados</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

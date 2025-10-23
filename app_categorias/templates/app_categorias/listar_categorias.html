@@ -1,0 +1,38 @@
+{% extends 'app_categorias/base.html' %}
+
+{% block title %}Lista de Categorías{% endblock %}
+
+{% block content %}
+<h2>📂 Lista de Categorías</h2>
+
+<a href="{% url 'app_categorias:crear_categorias' %}" class="btn btn-success">➕ Nueva Categoría</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for categoria in categorias %}
+        <tr>
+            <td><strong>{{ categoria.id_categoria }}</strong></td>
+            <td>{{ categoria.nombre }}</td>
+            <td>{{ categoria.descripcion|default:"-" }}</td>
+            <td>
+                <a href="{% url 'app_categorias:detalle_categorias' categoria.id_categoria %}" class="btn btn-primary">👁️ Ver</a>
+                <a href="{% url 'app_categorias:editar_categorias' categoria.id_categoria %}" class="btn btn-primary">✏️ Editar</a>
+                <a href="{% url 'app_categorias:borrar_categorias' categoria.id_categoria %}" class="btn btn-danger">🗑️ Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" style="text-align: center;">No hay categorías registradas</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

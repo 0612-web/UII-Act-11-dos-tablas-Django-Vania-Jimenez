@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Categorias{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="main-header">
+            <h1><a href="{% url 'app_categorias:listar_categoria' %}">🎵 Categorias</a></h1>
+            <nav class="main-nav">
+                <a href="{% url 'app_categorias:listar_categoria' %}">📋 Categorias</a>
+                <a href="{% url 'app_categorias:crear_categoria' %}">➕ Nuevo</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            {% block contenido %}{% endblock %}
+        </main>
+
+        <footer class="main-footer">
+            <p>© 2025 categorias - Vania Jimenez Sanchez Vania</p>
+        </footer>
+    </div>
+</body>
+</html>

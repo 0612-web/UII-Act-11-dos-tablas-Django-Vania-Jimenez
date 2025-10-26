@@ -1,0 +1,36 @@
+{% extends 'app_categoria/base.html' %}
+{% block titulo %}{{ categoria.nombre }} | Categorias{% endblock %}
+
+{% block contenido %}
+<article class="categoria-detail">
+    <div class="categoria-banner">
+        {% if categoria.foto_categoria %}
+            <img src="{{ categoria.foto_categoria.url }}" alt="Foto de {{ categoria.nombre }}" class="detail-photo">
+        {% else %}
+            <div class="detail-placeholder">👤</div>
+        {% endif %}
+        <div class="categoria-info">
+            <h1>{{ categoria.nombre }}</h1>
+            <h3>{{ categoria.descripcion }}</h3>
+        </div>
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'app_categorias:editar_categoria' categoria.id_categoria %}" class="btn btn-secondary">✏️ Editar</a>
+        <a href="{% url 'app_categorias:borrar_categoria' categoria.id_categoria %}" class="btn btn-danger">🗑️ Borrar</a>
+    </div>
+
+    <section class="songs-section">
+        <h2>Productos</h2>
+        {% if categoria.productos.all %}
+        <ul class="productos-list">
+            {% for producto in categoria.productos.all %}
+            <li>{{ producto.nombre }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty-message">Esta categoria no tiene productos registrados.</p>
+        {% endif %}
+    </section>
+</article>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'app_categorias/base.html' %}
+{% block titulo %}{{ titulo }} | Categorias{% endblock %}
+
+{% block contenido %}
+<h2>{{ titulo }}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'app_categorias:listar_categoria' %}" class="btn">Cancelar</a>
+</form>
+{% endblock %}

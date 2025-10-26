@@ -1,0 +1,21 @@
+{% extends 'app_categorias/base.html' %}
+
+{% block titulo %}Confirmar Borrado | Categorías{% endblock %}
+
+{% block contenido %}
+<h2>¿Seguro que quieres borrar esta categoría?</h2>
+
+<div class="categoria-info">
+    <h3>{{ categoria.nombre_categoria }}</h3>
+    {% if categoria.foto_categoria %}
+        <img src="{{ categoria.foto_categoria.url }}" alt="Foto de {{ categoria.nombre_categoria }}" class="categoria-img">
+    {% endif %}
+    <p>{{ categoria.descripcion }}</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, borrar</button>
+    <a href="{% url 'app_categorias:listar_categoria' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'app_categorias/base.html' %}
+{% block titulo %}Categorias | Categorias{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h2>Categorias Registradas</h2>
+    <a href="{% url 'app_categorias:crear_categoria' %}" class="btn btn-primary">+ Agregar Categoria</a>
+</div>
+
+<ul class="categoria-grid">
+    {% for categoria in categorias %}
+    <li class="Categoria">
+        <a href="{% url 'app_categorias:detalle_categoria' categoria.id_categoria %}">
+            {% if categoria.foto_categoria %}
+                <img src="{{ categoria.foto_categoria.url }}" alt="Foto de {{ categoria.nombre }}" class="categoria-img">
+            {% else %}
+                <div class="categoria-placeholder">🎵</div>
+            {% endif %}
+            <h3>ID {{ categoria.id_categoria }} - {{ categoria.nombre }}</h3>
+            <p class="categoria-descripcion">{{ categoria.descripcion }}</p>
+        </a>
+
+        <div class="acciones">
+            <a href="{% url 'app_categorias:editar_categoria' categoria.id_categoria %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'app_categorias:borrar_categoria' categoria.id_categoria %}" class="btn btn-danger">Borrar</a>
+        </div>
+    </li>
+    {% empty %}
+    <li class="no-artists">No hay categorias registradas.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
